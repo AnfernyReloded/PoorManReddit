@@ -1,0 +1,35 @@
+﻿@model RedditObject
+
+    <form asp-action="Index" asp-controller="Home" method="post">
+       
+        
+    </form>
+
+@{
+    if (Model != null)
+    {
+        var i = 0;
+
+        foreach (Child child in Model.data.children)
+        {
+            i++;
+            if (i > 10)
+            {
+                break;
+            }
+
+            var url = child.data.url;
+            if (!(url.Contains(".jpg") || url.Contains(".png") || url.Contains(".jpeg")))
+            {
+                url = child.data.thumbnail;
+            }
+
+            <div>
+                <h1>@i - <a target="_blank" href="https://www.reddit.com/@child.data.permalink">@child.data.title</a></h1>
+                <br />
+                <img src="@url" style="width:50%; height:auto" />
+            </div>
+            <br />
+        }
+    }
+}
